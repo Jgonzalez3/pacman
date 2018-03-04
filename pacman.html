@@ -67,6 +67,7 @@
                     console.log(score);
                 }
                 $('#score').html("<p id='score'>"+score+"</p>");
+                
             }
             
             $(document).on("keydown", function(e){
@@ -103,8 +104,10 @@
                     DrawWorld();
                     $('.pacmanpic').css("transform", "rotate("+180+"deg)")
                 }
+                if(score == 725){
+                $(".wrapper").html("<p class='win'>You Win</p>")
+            }
             })
-
         })
     </script>
 </head>

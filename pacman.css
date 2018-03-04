@@ -80,3 +80,11 @@
 h4{
     margin-bottom: 10px;
 }
+.win{
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    margin: 50px auto;
+    color: green;
+    font-size: 5em;
+}
