@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    margin: 0 auto;
+    width: 950px;
+}
+.row{
+    line-height: 0;
+    height: 50px;
+}
+.wall{
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    display: inline-block;
+}
+.space{
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    display: inline-block;
+}
+.map{
+    background-color: black;
+}
+.pacman{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-color: black;
+    padding: 5px;
+}
+.pacmanpic{
+    width: 0;
+    height: 0;
+    color: yellow;
+    border-top: solid yellow 20px;
+    border-right: solid 20px transparent;
+    border-left: solid yellow 20px;
+    border-bottom: solid yellow 20px;
+    background-color: black;
+    border-radius: 25px 25px;
+    transform: rotate(0deg);
+}
+.silvercoin{
+    width: 42px;
+    height: 42px;
+    background-color: black;
+    background-image: url("https://us.v-cdn.net/5017598/uploads/editor/cj/763jmtpzicj9.gif");
+    background-size: contain;
+    display: inline-block;
+    margin: 4px;
+}
+.goldcoin{
+    width: 42px;
+    height: 42px;
+    background-color: black;
+    background-image: url("https://us.v-cdn.net/5017598/uploads/editor/fw/hgz76zgh38m6.gif");
+    background-size: contain;
+    display: inline-block;
+    margin: 4px;
+}
+.gold100coin{
+    width: 42px;
+    height: 42px;
+    background-color: black;
+    background-image: url("https://us.v-cdn.net/5017598/uploads/editor/ja/8suyy5sl9h0d.gif");
+    background-size: contain;
+    display: inline-block;
+    margin: 4px;
+}
+.gamescore{
+    margin: 20px;
+    background-color: red;
+    text-align: center;
+    padding: 10px;
+}
+h4{
+    margin-bottom: 10px;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PacMan</title>
+    <link rel="stylesheet" href="pacman.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var WorldDict = {
+                0: "wall",
+                1: "space",
+                2: "pacman",
+                3: "silvercoin",
+                4: "goldcoin",
+                5: "gold100coin"
+            }
+            var world = [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,2,3,3,3,3,3,3,3,3,3,3,3,5,0,3,3,4,0],
+                [0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3,0],
+                [0,3,3,3,0,4,3,3,3,3,3,3,0,3,3,3,0,3,0],
+                [0,3,0,3,0,0,0,0,0,0,0,3,0,3,0,0,0,3,0],
+                [0,4,0,3,3,4,3,3,3,3,3,3,3,3,3,0,3,3,0],
+                [0,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,3,0],
+                [0,3,3,3,0,3,0,3,3,3,5,0,3,3,3,0,3,3,0],
+                [0,3,0,0,0,3,0,3,0,0,0,0,3,0,3,0,0,3,0],
+                [0,4,3,3,3,3,0,3,3,3,3,3,3,0,3,3,3,4,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            ]
+            var pacman = {
+                x: 1,
+                y: 1
+            }
+            var silvercoin = 5, goldcoin = 20, gold100coin = 100;
+            var score = 0;
+
+            function DrawWorld(){
+                var output = "";
+                for(var y = 0; y<world.length; y++){
+                    output += "<div class ='row'>"
+                    for(var x = 0; x<world[y].length; x++){
+                        if(world[y][x] == 2){
+                            output += "<div class='"+WorldDict[world[y][x]]+"'><div class='pacmanpic'></div></div>"
+                        }
+                        else output += "<div class='"+WorldDict[world[y][x]]+"'></div>"
+                    }
+                    output+="</div>";
+                }
+                $('.map').html(output);
+            }
+            DrawWorld();
+
+            function UpdateScore(){
+                if(world[pacman.y][pacman.x] == 3){
+                    score+=silvercoin;
+                    console.log(score);
+                }
+                else if(world[pacman.y][pacman.x] == 4){
+                    score +=goldcoin;
+                    console.log(score);
+                }
+                else if(world[pacman.y][pacman.x] == 5){
+                    score +=gold100coin;
+                    console.log(score);
+                }
+                $('#score').html("<p id='score'>"+score+"</p>");
+            }
+            
+            $(document).on("keydown", function(e){
+                if(e.keyCode == 40 && world[pacman.y+1][pacman.x] !== 0){ //Down
+                    $('.pacmanpic').css("transform", "rotate(180deg)")
+                    pacman.y++;
+                    UpdateScore();
+                    world[pacman.y-1][pacman.x] = 1;
+                    world[pacman.y][pacman.x]=2;
+                    DrawWorld();
+                }
+                if(e.keyCode == 39 && world[pacman.y][pacman.x+1] !== 0){ //Right
+                    pacman.x++;
+                    UpdateScore();
+                    world[pacman.y][pacman.x-1] = 1;
+                    world[pacman.y][pacman.x]=2;
+                    DrawWorld();
+                }
+                if(e.keyCode == 38 && world[pacman.y-1][pacman.x] !== 0){ //Up
+                    pacman.y--;
+                    UpdateScore();
+                    world[pacman.y+1][pacman.x] = 1;
+                    world[pacman.y][pacman.x]=2;
+                    DrawWorld();
+                }
+                if(e.keyCode == 37 && world[pacman.y][pacman.x-1] !== 0){ //Left
+                    pacman.x--;
+                    UpdateScore();
+                    world[pacman.y][pacman.x+1] = 1;
+                    world[pacman.y][pacman.x]=2;
+                    DrawWorld();
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="map">
+            <div class='pacmanpic'></div>
+        </div>
+        <div class="gamescore">
+            <h4>SCORE</h4>
+            <p id="score">0</p>
+        </div>
+    </div>
+</body>
+</html>
