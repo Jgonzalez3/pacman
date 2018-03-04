@@ -15,27 +15,45 @@
                 2: "pacman",
                 3: "silvercoin",
                 4: "goldcoin",
-                5: "gold100coin"
+                5: "gold100coin",
+                6: "bluey",
+                7: "red",
+                8: "pinky",
+                9: "pumpky"
             }
-            var world = [
+            var startworld = [
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                [0,2,3,3,3,3,3,3,3,3,3,3,3,5,0,3,3,4,0],
+                [0,2,3,3,3,3,3,3,3,3,3,3,3,5,3,9,3,4,0],
                 [0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3,0],
                 [0,3,3,3,0,4,3,3,3,3,3,3,0,3,3,3,0,3,0],
                 [0,3,0,3,0,0,0,0,0,0,0,3,0,3,0,0,0,3,0],
-                [0,4,0,3,3,4,3,3,3,3,3,3,3,3,3,0,3,3,0],
-                [0,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,3,0],
-                [0,3,3,3,0,3,0,3,3,3,5,0,3,3,3,0,3,3,0],
+                [0,3,0,3,3,4,3,3,3,3,3,3,3,3,3,0,3,3,0],
+                [0,3,0,3,0,3,0,0,0,0,0,0,3,8,3,0,0,3,0],
+                [0,3,3,3,0,3,0,3,3,3,5,0,3,0,3,0,3,3,0],
                 [0,3,0,0,0,3,0,3,0,0,0,0,3,0,3,0,0,3,0],
-                [0,4,3,3,3,3,0,3,3,3,3,3,3,0,3,3,3,4,0],
+                [0,4,3,3,3,6,0,7,3,3,3,3,3,0,3,3,3,4,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            ]
+            var world = [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,2,3,3,3,3,3,3,3,3,3,3,3,5,3,9,3,4,0],
+                [0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3,0],
+                [0,3,3,3,0,4,3,3,3,3,3,3,0,3,3,3,0,3,0],
+                [0,3,0,3,0,0,0,0,0,0,0,3,0,3,0,0,0,3,0],
+                [0,3,0,3,3,4,3,3,3,3,3,3,3,3,3,0,3,3,0],
+                [0,3,0,3,0,3,0,0,0,0,0,0,3,8,3,0,0,3,0],
+                [0,3,3,3,0,3,0,3,3,3,5,0,3,0,3,0,3,3,0],
+                [0,3,0,0,0,3,0,3,0,0,0,0,3,0,3,0,0,3,0],
+                [0,4,3,3,3,6,0,7,3,3,3,3,3,0,3,3,3,4,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             ]
             var pacman = {
                 x: 1,
                 y: 1
             }
-            var silvercoin = 5, goldcoin = 20, gold100coin = 100;
+            var silvercoin = 5, goldcoin = 20;
             var score = 0;
+            var lives = 3;
 
             function DrawWorld(){
                 var output = "";
@@ -53,21 +71,32 @@
             }
             DrawWorld();
 
+            function DrawLives(){
+                hearts = "";
+                if(world[pacman.y][pacman.x] == 5){
+                        lives++;
+                    }
+                if(world[pacman.y][pacman.x] == 6 || world[pacman.y][pacman.x] == 7 || world[pacman.y][pacman.x] == 8 || world[pacman.y][pacman.x] == 9){
+                    lives--;
+                }
+                for(var i = 0; i<lives; i++){
+                    hearts += '<img class="life" src="https://vignette.wikia.nocookie.net/zelda/images/1/1b/Heart_Container_%28Majora%27s_Mask%29.png/revision/latest?cb=20120406205109" alt="heart container">'
+                }
+                console.log(hearts);
+                $("span").html(""+hearts+"");
+            }
+            DrawLives()
+
             function UpdateScore(){
                 if(world[pacman.y][pacman.x] == 3){
                     score+=silvercoin;
-                    console.log(score);
+                    // console.log(score);
                 }
                 else if(world[pacman.y][pacman.x] == 4){
                     score +=goldcoin;
-                    console.log(score);
+                    // console.log(score);
                 }
-                else if(world[pacman.y][pacman.x] == 5){
-                    score +=gold100coin;
-                    console.log(score);
-                }
-                $('#score').html("<p id='score'>"+score+"</p>");
-                
+                $('#score').html("<p id='score'>"+score+"</p>")  
             }
             
             $(document).on("keydown", function(e){
@@ -75,6 +104,7 @@
                 if(e.keyCode == 40 && world[pacman.y+1][pacman.x] !== 0){ //Down
                     pacman.y++;
                     UpdateScore();
+                    DrawLives();
                     world[pacman.y-1][pacman.x] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
@@ -83,6 +113,7 @@
                 if(e.keyCode == 39 && world[pacman.y][pacman.x+1] !== 0){ //Right
                     pacman.x++;
                     UpdateScore();
+                    DrawLives();
                     world[pacman.y][pacman.x-1] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
@@ -91,6 +122,7 @@
                 if(e.keyCode == 38 && world[pacman.y-1][pacman.x] !== 0){ //Up
                     pacman.y--;
                     UpdateScore();
+                    DrawLives();
                     world[pacman.y+1][pacman.x] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
@@ -99,14 +131,18 @@
                 if(e.keyCode == 37 && world[pacman.y][pacman.x-1] !== 0){ //Left
                     pacman.x--;
                     UpdateScore();
+                    DrawLives();
                     world[pacman.y][pacman.x+1] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
                     $('.pacmanpic').css("transform", "rotate("+180+"deg)")
                 }
-                if(score == 725){
+                if(lives == 0){
+                    $(".wrapper").html("<h1 class='gameover'>GAME OVER</h1>");
+                }
+                if(score == 525){
                 $(".wrapper").html("<p class='win'>You Win</p>")
-            }
+                }
             })
         })
     </script>
@@ -116,9 +152,12 @@
         <div class="map">
             <div class='pacmanpic'></div>
         </div>
-        <div class="gamescore">
-            <h4>SCORE</h4>
-            <p id="score">0</p>
+        <div class="statbox">
+            <div class="livescontainer"><span></span></div>
+            <div class="gamescore">
+                <h3>SCORE</h3>
+                <p id="score">0</p>
+            </div>
         </div>
     </div>
 </body>
