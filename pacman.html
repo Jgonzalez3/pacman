@@ -70,13 +70,14 @@
             }
             
             $(document).on("keydown", function(e){
+                
                 if(e.keyCode == 40 && world[pacman.y+1][pacman.x] !== 0){ //Down
-                    $('.pacmanpic').css("transform", "rotate(180deg)")
                     pacman.y++;
                     UpdateScore();
                     world[pacman.y-1][pacman.x] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
+                    $('.pacmanpic').css("transform", "rotate("+90+"deg)")
                 }
                 if(e.keyCode == 39 && world[pacman.y][pacman.x+1] !== 0){ //Right
                     pacman.x++;
@@ -84,6 +85,7 @@
                     world[pacman.y][pacman.x-1] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
+                    $('.pacmanpic').css("transform", "rotate("+0+"deg)")
                 }
                 if(e.keyCode == 38 && world[pacman.y-1][pacman.x] !== 0){ //Up
                     pacman.y--;
@@ -91,6 +93,7 @@
                     world[pacman.y+1][pacman.x] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
+                    $('.pacmanpic').css("transform", "rotate("+270+"deg)")
                 }
                 if(e.keyCode == 37 && world[pacman.y][pacman.x-1] !== 0){ //Left
                     pacman.x--;
@@ -98,6 +101,7 @@
                     world[pacman.y][pacman.x+1] = 1;
                     world[pacman.y][pacman.x]=2;
                     DrawWorld();
+                    $('.pacmanpic').css("transform", "rotate("+180+"deg)")
                 }
             })
 
